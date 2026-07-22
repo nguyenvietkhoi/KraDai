@@ -31,11 +31,11 @@ function loadTable() {
 				html += `<td><button onclick="s('./Sounds/NongLay/${row[7]}')">🔊</button></td>`;
 			else
 				html += `<td></td>`;
-			if (row[7] != null)
+			if (row[6] != null)
 				html += `<td><button onclick="s('./Sounds/PiTong/${row[6]}')">🔊</button></td>`;
 			else
 				html += `<td></td>`;
-			if (row[7] != null)
+			if (row[8] != null)
 				html += `<td><button onclick="s('./Sounds/TaMit/${row[8]}')">🔊</button></td>`;
 			else
 				html += `<td></td>`;
@@ -54,6 +54,26 @@ function s(url) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laha</title>
 <style>
+@font-face {
+font-family: Jigmo3;
+src: url('./fonts/Jigmo3.ttf') format('truetype');
+font-display: swap;
+}
+@font-face {
+font-family: SimSun;
+src: url('./fonts/simsun.ttc') format('truetype');
+font-display: swap;
+}
+@font-face {
+font-family: SimSun-ExtB;
+src: url('./fonts/simsunb.ttf') format('truetype');
+font-display: swap;
+}
+@font-face {
+font-family: SimSun-ExtG;
+src: url('./fonts/SimsunExtG.ttf') format('truetype');
+font-display: swap;
+}
 #waitscreen {
     background: url('./Loading.gif');
     background-position: center;
