@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="./Scripts/sql.js"></script>
+<script>
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', './Databases/laha.jpg', true);
+    xhr.responseType = 'arraybuffer';
+    xhr.onload = function (e) {
+        var uInt8Array = new Uint8Array(this.response);
+        condb = new SQL.Database(uInt8Array);
+        contents = condb.exec("SELECT * FROM laha where laha='maaz' ");
+        // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
+        console.log(contents[0].values[0]);
+        $("#waitscreen").css({ display: 'none' });
+		loadTable();
+    };
+    xhr.send();
+	
+function loadTable() {
+  var html = "<tr><td>ProtoKra</td><td>English</td><td>Việt</td><td>Nôm</td><td>Laha</td><td>Nong Lay</td><td>Nong Lay</td><td>Pi Tong</td><td>Tà Mít</td></tr>";	
+  contents = condb.exec('SELECT * FROM laha');
+  if (contents.length != 0) {
+	contents[0].values.forEach(row => {
+            html += "<tr>";
+            for (var i = 0; i < 6; i++) {
+				var cell = (row[i] != null) ? row[i] : "";
+                html += `<td>${cell}</td>`;
+            }
+			html += `<td><button onclick="s('./Sounds/NongLay/${row[7]}')">🔊</button></td>`;
+			html += `<td><button onclick="s('./Sounds/PiTong/${row[6]}')">🔊</button></td>`;
+			html += `<td><button onclick="s('./Sounds/TaMit/${row[8]}')">🔊</button></td>`;
+            html += "</tr>";
+        });
+	document.getElementById("lahaTable").innerHTML = html;
+  }
+}
+
+function s(url) {
+	new Audio(url).play();
+}
+</script>
+
+<div id="waitscreen" style="z-index: 1031;"></div>
+<table id="lahaTable">
+</table>
+<style>
+#waitscreen {
+    background: url('./Loading.gif');
+    background-position: center;
+    position: fixed;
+    width: 100%; height: 100%; left: 0; top: 0;
+    z-index:1001;
+}
+#lahaTable , td, th {
+  border: 1px solid;
+  padding: 1px;
+  font-size: 13px;
+  font-family: Cambria, "Times New Roman", "Cambria Tai Yo", "Tai Lanna", "Leelawadee UI", Tahoma, "Microsoft New Tai Lue", serif, "Muong Lo Cursive", TaiViet, "Segoe Ahom Print", "Helvetica Neue", Helvetica, Arial, SimSun, SimSun-ExtB, SimSun-ExtG, Jigmo3, "Malgun Gothic", "BabelStone Han", Sawndip, "Nom Na Tong", 'Han-Nom Gothic Supplement';
+}
+#lahaTable {
+	border-collapse: collapse;
+}
+</style>
