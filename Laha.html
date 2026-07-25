@@ -18,9 +18,10 @@
     xhr.send();
 	
 function loadTable() {
-  var html = "<tr><td>ProtoKra</td><td>English</td><td>Việt</td><td>Nôm</td><td>Laha</td><td>Nong Lay</td><td>Nong Lay</td><td>Pi Tong</td><td>Tà Mít</td></tr>";	
+  var html = "<thead><tr><th>ProtoKra</th><th>English</th><th>Việt</th><th>Nôm</th><th>Laha</th><th>Nong Lay</th><th>Nong Lay</th><th>Pi Tong</th><th>Tà Mít</th></tr></thead>";	
   contents = condb.exec('SELECT * FROM laha');
   if (contents.length != 0) {
+	html += "<tbody>";
 	contents[0].values.forEach(row => {
             html += "<tr>";
             for (var i = 0; i < 6; i++) {
@@ -41,6 +42,7 @@ function loadTable() {
 				html += `<td></td>`;
             html += "</tr>";
         });
+		html += "</tbody>";
 	document.getElementById("lahaTable").innerHTML = html;
   }
 }
@@ -85,10 +87,17 @@ font-display: swap;
   border: 1px solid;
   padding: 2px;
   font-size: 14px;
-  font-family: Cambria, "Times New Roman", "Cambria Tai Yo", "Tai Lanna", "Leelawadee UI", Tahoma, "Microsoft New Tai Lue", serif, "Muong Lo Cursive", TaiViet, "Segoe Ahom Print", "Helvetica Neue", Helvetica, Arial, SimSun, SimSun-ExtB, SimSun-ExtG, Jigmo3, "Malgun Gothic", "BabelStone Han", Sawndip, "Nom Na Tong", 'Han-Nom Gothic Supplement';
+  font-family: Calibri, "Verdana", "Cambria Tai Yo", "Tai Lanna", "Leelawadee UI", Tahoma, "Microsoft New Tai Lue", sans-serif, "Muong Lo Cursive", TaiViet, "Segoe Ahom Print", "Helvetica Neue", Helvetica, Arial, SimSun, SimSun-ExtB, SimSun-ExtG, Jigmo3, "Malgun Gothic", "BabelStone Han", Sawndip, "Nom Na Tong", 'Han-Nom Gothic Supplement';
 }
 #lahaTable {
 	border-collapse: collapse;
+}
+#lahaTable thead th{
+  color: #fff;
+  background: #131b56;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 </style>
 </head>
